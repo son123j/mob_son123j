@@ -7,3 +7,6 @@
 
 -마크버전 1.16.3
 
+-이 플러그인은 boyboy0710/mob를 수정한 플러그인입니다
+
+-출처 : https://github.com/boyboy0710/mob
