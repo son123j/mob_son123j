@@ -1,9 +1,0 @@
-main : com.boyboy0710.mob.Main
-name : mob
-version : 1.8.1
-api-version : 1.16
-
-commands:
-  spawn:
-    
-  spawn_no_ai:
