@@ -11,7 +11,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Golem;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,52 +32,14 @@ public class Main extends JavaPlugin implements Listener{
 	public void onEnable() {
 		System.out.println("----------------------------------------------------------");
 		System.out.println("    mob 를러그인을 성공적으로 불러왔습니다");
-		System.out.println("        플러그인 제작자ㅣ:boy0710boy, boyboy0710");
+		System.out.println("        플러그인 제작자ㅣ:boyboy0710");
 		System.out.println("   최신버전 다운 사이트 : https://github.com/boyboy0710/mob");
 		System.out.println("----------------------------------------------------------");
-		
-		
-		getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {for (Player player : Bukkit.getOnlinePlayers()) {
-	            List<ArmorStand> stands = new ArrayList<>();
-	            List<Entity> entities = Bukkit.getWorld("world").getEntities();
-	            for (Entity entity : entities) {
-	                if (entity.getType().equals(EntityType.ARMOR_STAND)) {
-	                    stands.add((ArmorStand) entity);
-	                }
-	            }
-	            for (ArmorStand armorStand : stands) {
-	                if (armorStand.getScoreboardTags().contains(player.getName())) {
-	                    armorStand.teleport(armorStand.getLocation().add(armorStand.getLocation().getDirection().multiply(1)));
-	                }
-	                for (Entity entity : entities) {
-	                    if (entity.getLocation().distance(armorStand.getLocation()) < 1) {
-	                        if (entity instanceof LivingEntity) {
-	                            ((org.bukkit.entity.LivingEntity) entity).damage(3000);
-	                        }
-	                    }
-	                }
-	            }
-	        }
-	    }, 0, 0);
 	}
 	@Override
 	public void onDisable() {
 		System.out.println("mob 플러그인이 비활성화 되었습니다");
 	}
-	
-	@EventHandler
-	public void interact(PlayerInteractEvent event) {
-	    if(event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-	    	if (event.getItem().getType() == Material.DIAMOND_SWORD) {
-	    	Player player = event.getPlayer();
-	        World world = event.getPlayer().getWorld();
-	        ArmorStand stand = world.spawn(player.getLocation(), ArmorStand.class);
-	        stand.addScoreboardTag(player.getName());
-	        ((PlayerInventory) player).setItem(EquipmentSlot.HAND, player.getInventory().getItemInMainHand());
-	        player.getInventory().setItemInMainHand(null);
-	    }
-	   }
-	}	    
 	
 	@EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
@@ -93,16 +54,12 @@ public class Main extends JavaPlugin implements Listener{
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		int h = 0;
-
 		int c = 0;
-
 		int b = 0;
-
 		int l = 0;
-
-
 		Player p = (Player) sender;
 		int level = p.getLevel();
+		int level2 = level*1;
 		int hp = 20;
 		int e = 0;
 		if(cmd.getName().equalsIgnoreCase("reloed_Health")) {
@@ -126,65 +83,69 @@ public class Main extends JavaPlugin implements Listener{
 			}
 			
 			
-			if(p.getInventory().getBoots().getType() == Material.NETHERITE_CHESTPLATE) {
+			if(p.getInventory().getChestplate().getType() == Material.NETHERITE_CHESTPLATE) {
 				c = 4;
+				level2 = level*4;
 			}
-			if(p.getInventory().getBoots().getType() == Material.DIAMOND_CHESTPLATE) {
+			if(p.getInventory().getChestplate().getType() == Material.DIAMOND_CHESTPLATE) {
 				c = 3;
+				level2 = level*3;
 			}
-			if(p.getInventory().getBoots().getType() == Material.GOLDEN_CHESTPLATE) {
+			if(p.getInventory().getChestplate().getType() == Material.GOLDEN_CHESTPLATE) {
 				c = 2;
+				level2 = level*2;
 			}
-			if(p.getInventory().getBoots().getType() == Material.IRON_CHESTPLATE) {
+			if(p.getInventory().getChestplate().getType() == Material.IRON_CHESTPLATE) {
 				c = 2;
+				level2 = level*2;
 			}
-			if(p.getInventory().getBoots().getType() == Material.CHAINMAIL_CHESTPLATE) {
+			if(p.getInventory().getChestplate().getType() == Material.CHAINMAIL_CHESTPLATE) {
 				c = 1;
 			}
-			if(p.getInventory().getBoots().getType() == Material.LEATHER_CHESTPLATE) {
+			if(p.getInventory().getChestplate().getType() == Material.LEATHER_CHESTPLATE) {
 				c = 1;
 			}
 			
 			
-			if(p.getInventory().getBoots().getType() == Material.NETHERITE_HELMET) {
-				 h = 4;
+			if(p.getInventory().getHelmet().getType() == Material.NETHERITE_HELMET) {
+				h = 4;
 			}
-			if(p.getInventory().getBoots().getType() == Material.DIAMOND_HELMET) {
+			if(p.getInventory().getHelmet().getType() == Material.DIAMOND_HELMET) {
 				h = 3;
 			}
-			if(p.getInventory().getBoots().getType() == Material.GOLDEN_HELMET) {
+			if(p.getInventory().getHelmet().getType() == Material.GOLDEN_HELMET) {
 				h = 2;
 			}
-			if(p.getInventory().getBoots().getType() == Material.IRON_HELMET) {
+			if(p.getInventory().getHelmet().getType() == Material.IRON_HELMET) {
 				h = 2;
 			}
-			if(p.getInventory().getBoots().getType() == Material.CHAINMAIL_HELMET) {
+			if(p.getInventory().getHelmet().getType() == Material.CHAINMAIL_HELMET) {
 				h = 1;
 			}
-			if(p.getInventory().getBoots().getType() == Material.LEATHER_HELMET) {
+			if(p.getInventory().getHelmet().getType() == Material.LEATHER_HELMET) {
 				h = 1;
 			}
 			
 			
-			if(p.getInventory().getBoots().getType() == Material.NETHERITE_LEGGINGS) {
+			if(p.getInventory().getLeggings().getType() == Material.NETHERITE_LEGGINGS) {
 				l = 4;
 			}
-			if(p.getInventory().getBoots().getType() == Material.DIAMOND_LEGGINGS) {
+			if(p.getInventory().getLeggings().getType() == Material.DIAMOND_LEGGINGS) {
 				l = 3;
 			}
-			if(p.getInventory().getBoots().getType() == Material.GOLDEN_LEGGINGS) {
+			if(p.getInventory().getLeggings().getType() == Material.GOLDEN_LEGGINGS) {
 				l = 2; 
 			}
-			if(p.getInventory().getBoots().getType() == Material.IRON_LEGGINGS) {
+			if(p.getInventory().getLeggings().getType() == Material.IRON_LEGGINGS) {
 				l = 2;
 			}
-			if(p.getInventory().getBoots().getType() == Material.CHAINMAIL_LEGGINGS) {
+			if(p.getInventory().getLeggings().getType() == Material.CHAINMAIL_LEGGINGS) {
 				l = 1;
 			}
-			if(p.getInventory().getBoots().getType() == Material.LEATHER_LEGGINGS) {
+			if(p.getInventory().getLeggings().getType() == Material.LEATHER_LEGGINGS) {
 				l = 1;
-			}
-			e = l+h+c+b+ level + hp;
+			} 
+			e = l+h+c+b+ level2 + hp;
 			p.setMaxHealth(e);
 		}
 		
@@ -245,7 +206,7 @@ public class Main extends JavaPlugin implements Listener{
 			
 			else if(args[0].equalsIgnoreCase("ender_guardian")) {
 				Player player = (Player) sender;
-			    setentityStats((LivingEntity) player.getWorld().spawnEntity(player.getLocation(), EntityType.ELDER_GUARDIAN));//앨더가디언
+			    setentityStats((LivingEntity) player.getWorld().spawnEntity(player.getLocation(), EntityType.ELDER_GUARDIAN));
 			}
 			else if(args[0].equalsIgnoreCase("ENDER_DRAGON")) {
 				Player player = (Player) sender;
@@ -404,7 +365,7 @@ public class Main extends JavaPlugin implements Listener{
 				world.setThundering(true);
 			}
 			
-			else if(args[0].equalsIgnoreCase("king_Wither Skeleton")) {
+			else if(args[0].equalsIgnoreCase("king_wither skeleton")) {
 				Player player = (Player) sender;
 				setWitherSkeletonStats((LivingEntity) player.getWorld().spawnEntity(player.getLocation(), EntityType.WITHER_SKELETON));
 				Wither_Skeleton = true;
